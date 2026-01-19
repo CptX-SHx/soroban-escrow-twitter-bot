@@ -10,7 +10,7 @@ Twitter bot that monitors a specified Soroban escrow smart contract and automati
 
 ## Overview
 
-This bot listens for `lock` and `unlock` events emitted by the [Stronghold (SHx) escrow contract](https://stellar.expert/explorer/public/contract/CCA5HAZCPEYXD7JBKAJCVUZUXAK7V5ZFU3QMJO33OJH2OHL3OGLS2P7M), formats informative tweets, and posts them to a configured [Twitter account](https://x.com/shxescrow).
+This bot listens for `lock` and `unlock` events emitted by the [Stronghold (SHx) escrow contract](https://stellar.expert/explorer/public/contract/CCA5HAZCPEYXD7JBKAJCVUZUXAK7V5ZFU3QMJO33OJH2OHL3OGLS2P7M), formats informative tweets, and posts them to a configured [Twitter account](https://x.com/SHxEscrowAlerts).
 
 ## Features
 
