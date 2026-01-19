@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Documentation
+    url: https://github.com/padparadscho/soroban-escrow-twitter-bot/blob/main/README.md
+    about: Comprehensive documentation for the soroban-escrow-twitter-bot repository.
+  - name: GitHub Discussions
+    url: https://github.com/padparadscho/soroban-escrow-twitter-bot/discussions
+    about: Ask questions, share ideas, and discuss with the community on GitHub.
+  - name: Stronghold Discord Community
+    url: https://discord.gg/A3RUxuHTzV
+    about: Join the Stronghold Discord community for broader ecosystem discussions.
