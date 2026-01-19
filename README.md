@@ -1,5 +1,6 @@
 > [!IMPORTANT]  
 > Work in progress. Bot functionalities are not yet complete and may change significantly.
+> Refer to the following [fork](https://github.com/CptX-SHx/soroban-escrow-twitter-bot) for further developments.
 
 > [!WARNING]
 > This project and involved contributors are not affiliated with, endorsed by, or sponsored by Stronghold or any of its affiliates. This is an independent community project developed for educational and experimental purposes only. Use at your own risk.
@@ -48,7 +49,7 @@ pnpm install
    - For the `SOROBAN_RPC_URL` and `NETWORK_PASSPHRASE`, refer to the [Soroban RPC providers](https://developers.stellar.org/docs/data/apis/rpc/providers) documentation.
    - For the Twitter API credentials, refer to the [Twitter Developer Platform](https://docs.x.com/) documentation.
    - For the `STELLAR_EXPLORER_BASE_URL`, set it to the appropriate Stellar explorer URL based on the network you are using ([testnet](https://stellar.expert/explorer/testnet), [mainnet](https://stellar.expert/explorer/public), etc.).
-   - Set the `POLLING_INTERVAL` as desired (default is 600000ms).
+   - Set the `POLLING_INTERVAL` as desired (default is 60000ms).
    - (Optional) Set `DRY_RUN=true` to test without posting to Twitter.
 
 ## Usage
