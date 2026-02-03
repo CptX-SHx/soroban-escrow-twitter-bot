@@ -12,8 +12,6 @@ updates:
         patterns:
           - "*"
     open-pull-requests-limit: 10
-    reviewers:
-      - "padparadscho"
     assignees:
       - "padparadscho"
     labels:
