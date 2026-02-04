@@ -64,14 +64,24 @@ pnpm run dev
 
 ```bash
 pnpm run build
+
 pnpm start
 ```
 
 3. (Optional) Using Docker:
 
 ```bash
+# Build the Docker image
 docker build -t soroban-escrow-twitter-bot .
-docker run -d --env-file .env --name escrow-bot soroban-escrow-twitter-bot
+
+# Run the Docker container
+docker run -d --env-file .env --name soroban-escrow-twitter-bot-container soroban-escrow-twitter-bot
+
+# Check logs
+docker logs -f soroban-escrow-twitter-bot-container
+
+# Stop and remove the container
+docker stop soroban-escrow-twitter-bot-container && docker rm soroban-escrow-twitter-bot-container
 ```
 
 ## Contributing
