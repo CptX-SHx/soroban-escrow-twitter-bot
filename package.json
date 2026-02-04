@@ -35,5 +35,5 @@
       "diff": "^4.0.4"
     }
   },
-  "packageManager": "pnpm@10.28.0"
+  "packageManager": "pnpm@10.28.2"
 }
