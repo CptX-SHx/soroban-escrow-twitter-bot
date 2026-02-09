@@ -22,11 +22,11 @@
   "license": "MIT",
   "dependencies": {
     "@stellar/stellar-sdk": "^14.5.0",
-    "dotenv": "^17.2.3",
+    "dotenv": "^17.2.4",
     "twitter-api-v2": "^1.29.0"
   },
   "devDependencies": {
-    "@types/node": "^25.2.0",
+    "@types/node": "^25.2.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   },
