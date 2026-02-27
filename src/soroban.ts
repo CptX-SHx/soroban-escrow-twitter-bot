@@ -45,6 +45,7 @@ export class EscrowListener {
   /**
    * Polls for new contract events using cursor-based pagination to avoid duplicates.
    * Monitors the Escrow Contract for 'lock' and 'unlock' events.
+   * Handles cursor/startLedger errors by resetting state and resuming from latest ledger.
    * @returns Array of parsed EscrowEvent objects
    */
   async checkEvents(): Promise<EscrowEvent[]> {
@@ -103,8 +104,20 @@ export class EscrowListener {
       }
 
       return [];
-    } catch (error) {
-      console.error("Error fetching Soroban events:", error);
+    } catch (error: any) {
+      const code =
+        error.response?.data?.error?.code ??
+        error.response?.data?.code ??
+        error.code ??
+        null;
+
+      // Handle cursor/startLedger errors by resetting state
+      if (code === -32600) {
+        this.lastCursor = undefined;
+        this.startLedger = await this.getLatestLedger();
+      } else {
+        console.error("Error fetching Soroban events:", error);
+      }
       return [];
     }
   }

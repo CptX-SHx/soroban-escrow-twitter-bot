@@ -21,14 +21,20 @@
   "homepage": "https://github.com/padparadscho/soroban-escrow-twitter-bot#readme",
   "license": "MIT",
   "dependencies": {
-    "@stellar/stellar-sdk": "^14.4.3",
-    "dotenv": "^17.2.3",
+    "@stellar/stellar-sdk": "^14.5.0",
+    "dotenv": "^17.3.1",
     "twitter-api-v2": "^1.29.0"
   },
   "devDependencies": {
-    "@types/node": "^25.0.9",
+    "@types/node": "^25.3.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   },
-  "packageManager": "pnpm@10.28.0"
+  "pnpm": {
+    "overrides": {
+      "axios": "^1.13.5",
+      "diff": "^4.0.4"
+    }
+  },
+  "packageManager": "pnpm@10.28.2"
 }
