@@ -13,7 +13,7 @@ updates:
           - "*"
     open-pull-requests-limit: 10
     assignees:
-      - "padparadscho"
+      - "CptX-SHx"
     labels:
       - "dependencies"
     versioning-strategy: increase
