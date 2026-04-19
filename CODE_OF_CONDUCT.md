@@ -36,6 +36,10 @@ Instances of abusive, harassing, or otherwise unacceptable behavior may be repor
 
 This Code of Conduct is adapted from the [Contributor Covenant, version 1.4](https://www.contributor-covenant.org/version/1/4/code-of-conduct.html).
 
+<br> 
+<br> 
+<br> 
+
 # The Stronghold Community Guidelines also apply.
 
 ## SHx Community Guidelines
