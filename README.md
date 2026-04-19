@@ -2,7 +2,7 @@
 > Work in progress. Bot functionalities are not yet complete and may change significantly.
 
 > [!WARNING]
-> This project is supported by <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/X_logo_2023_original.svg" width="10" /> [@strongholdpay](https://x.com/strongholdpay) Ecosystem Development Program (#EDP) and is being further developed by <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/X_logo_2023_original.svg" width="10" /> [@DebunkJelpi](https://x.com/DebunkJelpi)
+> This project is supported by <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/X_logo_2023_original.svg" width="10" /> [@strongholdpay](https://x.com/strongholdpay) Ecosystem Development Program (EDP) and is being further developed by <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/X_logo_2023_original.svg" width="10" /> [@DebunkJelpi](https://x.com/DebunkJelpi)
 
 Want to know more about the Ecosystem Development Program? Click here: [EDP](https://docs.shx.stronghold.co/ecosystem/edp)
 
