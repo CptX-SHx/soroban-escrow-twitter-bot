@@ -1,9 +1,10 @@
 > [!IMPORTANT]  
 > Work in progress. Bot functionalities are not yet complete and may change significantly.
-> Refer to the following [fork](https://github.com/CptX-SHx/soroban-escrow-twitter-bot) for further developments.
 
 > [!WARNING]
-> This project and involved contributors are not affiliated with, endorsed by, or sponsored by Stronghold or any of its affiliates. This is an independent community project developed for educational and experimental purposes only. Use at your own risk.
+> This project is supported by <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/X_logo_2023_original.svg" width="10" /> [@strongholdpay](https://x.com/strongholdpay) Ecosystem Development Program (#EDP) and is being further developed by <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/X_logo_2023_original.svg" width="10" /> [@DebunkJelpi](https://x.com/DebunkJelpi)
+
+Want to know more about the Ecosystem Development Program? Click here: [EDP](https://docs.shx.stronghold.co/ecosystem/edp)
 
 # Soroban Escrow Twitter Bot
 
@@ -19,8 +20,6 @@ This bot listens for `lock` and `unlock` events emitted by the [Stronghold (SHx)
 - Cursor-based pagination for reliable event tracking.
 - Formatted tweets with contract balance and transaction details.
 - Configurable polling intervals and dry-run mode for testing.
-
-Track ongoing tasks and project progress through the [GitHub Project](https://github.com/users/padparadscho/projects/4) board and participate in conversations or share your feedback in the dedicated [GitHub Discussions](https://github.com/padparadscho/soroban-escrow-twitter-bot/discussions) space.
 
 ## Prerequisites
 
@@ -110,5 +109,4 @@ This project is licensed under the [MIT License](/LICENSE).
 
 Special thanks to the following contributors and Stronghold (SHx) community members for their continuous help and support:
 
-- <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/X_logo_2023_original.svg" width="10" /> [@DebunkJelpi](https://x.com/DebunkJelpi)
 - <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/X_logo_2023_original.svg" width="10" /> [@DogeGecko](https://x.com/Dogegecko)
