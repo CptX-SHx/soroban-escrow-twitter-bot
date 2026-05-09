@@ -37,7 +37,8 @@ export function formatMessage(
 🔹 Escrow balance updated: ${toBold(contractBalance)} $SHx
     
 🧾 ID: ${id}
-🔗 ${tx}`;
+🔗 ${tx}
+🪙 Escrow Contract: https://stellar.expert/explorer/public/contract/CCA5HAZCPEYXD7JBKAJCVUZUXAK7V5ZFU3QMJO33OJH2OHL3OGLS2P7M`;
   } else if (event.type === "unlock") {
     // Unlock event message
     return `🚨 ${toBold("SHx Escrow Alert")} 🚨
@@ -45,9 +46,9 @@ export function formatMessage(
 🔓 Account ${toBold(address)} has unlocked ${toBold(amount)} #SHx on ${date}.
     
 🔹 Escrow balance updated: ${toBold(contractBalance)} $SHx
-    
+
 🧾 ID: ${id}
-🔗 ${tx}`;
-  }
-  return "";
+🔗 ${tx}
+🪙 Escrow Contract: https://stellar.expert/explorer/public/contract/CCA5HAZCPEYXD7JBKAJCVUZUXAK7V5ZFU3QMJO33OJH2OHL3OGLS2P7M`;
 }
+return "";
