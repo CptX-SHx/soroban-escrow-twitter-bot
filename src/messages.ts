@@ -50,5 +50,6 @@ export function formatMessage(
 🧾 ID: ${id}
 🔗 ${tx}
 🪙 Escrow Contract: https://stellar.expert/explorer/public/contract/CCA5HAZCPEYXD7JBKAJCVUZUXAK7V5ZFU3QMJO33OJH2OHL3OGLS2P7M`;
+  }
+  return "";
 }
-return "";
