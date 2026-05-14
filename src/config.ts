@@ -21,6 +21,11 @@ export const CONFIG = {
   },
   DRY_RUN: process.env.DRY_RUN === "true",
   POLLING_INTERVAL: parseInt(process.env.POLLING_INTERVAL || "60000", 10),
+  // Minimum delay enforced between two consecutive tweets (default 5 min).
+  POSTER_MIN_INTERVAL: parseInt(
+    process.env.POSTER_MIN_INTERVAL || "300000",
+    10,
+  ),
 };
 
 if (!CONFIG.SOROBAN_ESCROW_CONTRACT_ID) {
