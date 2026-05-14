@@ -202,6 +202,12 @@ export class EscrowListener {
       const eventType = (topics[1] as string).toLowerCase();
       const account = topics[2] as string;
 
+      // Use on-chain ledger close time when available; fall back to now
+      const ledgerClosedAt = (event as any).ledgerClosedAt;
+      const timestamp = ledgerClosedAt
+        ? new Date(ledgerClosedAt).getTime()
+        : Date.now();
+
       if (eventType === "lock") {
         return {
           type: "lock",
@@ -210,7 +216,7 @@ export class EscrowListener {
           claimAfter: data.claim_after
             ? data.claim_after.toString()
             : undefined,
-          timestamp: Date.now(),
+          timestamp,
           txHash: event.txHash,
           ledger: event.ledger,
         };
@@ -219,7 +225,7 @@ export class EscrowListener {
           type: "unlock",
           account: account,
           amount: data.amount ? data.amount.toString() : "0",
-          timestamp: Date.now(),
+          timestamp,
           txHash: event.txHash,
           ledger: event.ledger,
         };
