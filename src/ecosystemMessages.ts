@@ -24,6 +24,7 @@ Check the replies for the full report 👇
 📈 Market Cap: $${data.selfReportedMarketCap}
 🔄 Circulating Supply: ${data.selfReportedCirculatingSupply} $SHx
 (Source: CoinMarketCap, self-reported)
+
 🔒 Locked in Escrow: ${data.escrowBalance} $SHx
 📅 Escrow active since: ${data.escrowActiveDate}
 
