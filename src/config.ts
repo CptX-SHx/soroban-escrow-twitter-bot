@@ -21,13 +21,6 @@ export const CONFIG = {
   },
   DRY_RUN: process.env.DRY_RUN === "true",
   POLLING_INTERVAL: parseInt(process.env.POLLING_INTERVAL || "60000", 10),
-  COINMARKETCAP_API_KEY: process.env.COINMARKETCAP_API_KEY || "",
-  ESCROW_ACTIVE_SINCE: process.env.ESCROW_ACTIVE_SINCE || "June 16, 2025",
-  ESCROW_LINK:
-    process.env.ESCROW_LINK ||
-    "https://stellar.expert/explorer/public/contract/CCA5HAZCPEYXD7JBKAJCVUZUXAK7V5ZFU3QMJO33OJH2OHL3OGLS2P7M",
-  AVAILABLE_CHAINS:
-    process.env.AVAILABLE_CHAINS || "Stellar · Ethereum · XRPL",
 };
 
 if (!CONFIG.SOROBAN_ESCROW_CONTRACT_ID) {
