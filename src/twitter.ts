@@ -6,7 +6,7 @@ export class TwitterClient {
 
   constructor() {}
 
-  private getClient(): TwitterApi {
+  public getClient(): TwitterApi {
     if (this.client) return this.client;
 
     this.client = new TwitterApi({
