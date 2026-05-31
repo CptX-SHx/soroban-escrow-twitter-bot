@@ -3,6 +3,10 @@ import { EscrowListener } from "./soroban";
 import { formatAmount } from "./utils";
 import { formatMessage } from "./messages";
 import { CONFIG } from "./config";
+import { collectEcosystemReportData } from "./ecosystemReport";
+import { formatEcosystemReportThread } from "./ecosystemMessages";
+
+const twitter = new TwitterClient();
 
 /**
  * Initializes the escrow event listener and Twitter client, then enters a polling loop
@@ -13,7 +17,6 @@ async function main() {
   console.log(`Listening to contract: ${CONFIG.SOROBAN_ESCROW_CONTRACT_ID}`);
   console.log(`Soroban RPC URL: ${CONFIG.SOROBAN_RPC_URL}`);
 
-  const twitter = new TwitterClient();
   const escrow = new EscrowListener();
 
   console.log(`Polling every ${CONFIG.POLLING_INTERVAL}ms...`);
@@ -51,3 +54,83 @@ async function main() {
 }
 
 main().catch(console.error);
+
+// ─── Ecosystem Report Scheduler ───────────────────────────────────────────
+
+let isPostingReport = false;
+
+function nextReportTarget(): Date {
+  const now = new Date();
+  const target = new Date(
+    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 28, 9, 0, 0, 0),
+  );
+  if (now.getTime() >= target.getTime()) {
+    target.setUTCMonth(target.getUTCMonth() + 1);
+  }
+  return target;
+}
+
+async function postEcosystemReport(): Promise<void> {
+  if (isPostingReport) {
+    console.warn("Ecosystem report already in progress, skipping.");
+    return;
+  }
+  isPostingReport = true;
+  try {
+    if (!CONFIG.COINMARKETCAP_API_KEY) {
+      console.warn("Ecosystem report skipped: COINMARKETCAP_API_KEY not set");
+      return;
+    }
+    console.log("Generating monthly ecosystem report...");
+    const data = await collectEcosystemReportData();
+    const tweets = formatEcosystemReportThread(data);
+    if (CONFIG.DRY_RUN) {
+      tweets.forEach((t, i) =>
+        console.log(`[DRY RUN] Ecosystem report tweet ${i + 1}:\n${t}\n`),
+      );
+      return;
+    }
+    let lastTweetId: string | undefined;
+    for (const tweet of tweets) {
+      const result = await twitter
+        .getClient()
+        .v2.tweet(
+          tweet,
+          lastTweetId ? { reply: { in_reply_to_tweet_id: lastTweetId } } : {},
+        );
+      lastTweetId = result.data.id;
+      await new Promise((r) => setTimeout(r, 3000));
+    }
+    console.log("Ecosystem report posted successfully.");
+  } finally {
+    isPostingReport = false;
+  }
+}
+
+function scheduleEcosystemReport(): void {
+  const target = nextReportTarget();
+  const msUntil = target.getTime() - Date.now();
+  const hours = Math.floor(msUntil / 3_600_000);
+  console.log(
+    `Next ecosystem report scheduled for ${target.toISOString()} (in ${hours}h)`,
+  );
+  const MAX_TIMEOUT = 2_147_483_647;
+  if (msUntil > MAX_TIMEOUT) {
+    setTimeout(() => scheduleEcosystemReport(), MAX_TIMEOUT);
+    return;
+  }
+  setTimeout(async () => {
+    try {
+      await postEcosystemReport();
+    } catch (error) {
+      console.error(
+        "Ecosystem report failed:",
+        error instanceof Error ? error.message : error,
+      );
+    } finally {
+      scheduleEcosystemReport();
+    }
+  }, msUntil);
+}
+
+scheduleEcosystemReport();
