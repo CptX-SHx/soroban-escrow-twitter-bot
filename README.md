@@ -110,5 +110,4 @@ This project is licensed under the [MIT License](/LICENSE).
 Special thanks to the following contributors and Stronghold (SHx) community members for their continuous help and support:
 
 - <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/X_logo_2023_original.svg" width="10" /> [@DogeGecko](https://x.com/Dogegecko)
-- <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/X_logo_2023_original.svg" width="10" />
-[@GreenKnuckles](https://x.com/DylanColes13)
+- <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/X_logo_2023_original.svg" width="10" /> [@GreenKnuckles](https://x.com/DylanColes13)
