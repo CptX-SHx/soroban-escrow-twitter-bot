@@ -51,6 +51,7 @@ async function main() {
 
   // Start the polling loop
   poll();
+  scheduleEcosystemReport();
 }
 
 main().catch(console.error);
@@ -132,5 +133,3 @@ function scheduleEcosystemReport(): void {
     }
   }, msUntil);
 }
-
-scheduleEcosystemReport();
