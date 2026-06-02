@@ -61,7 +61,7 @@ async function fetchStellarExpertData(): Promise<{
   createdTrustlines: string;
 }> {
   const url =
-    "https://api.stellar.expert/explorer/public/asset/SHX-GCNSGHUCG5VMGLT5RIYYZSO7VQULQKAJ62QA33DBC5PPBSO57RNBS02V";
+    "https://api.stellar.expert/explorer/public/asset/SHX-GDSTRSHXHGJ7ZIVRBXEYE5Q74XUVCUSEKEBR7UCHEUUEK72N7I7KJ6JH";
   const response = await fetch(url);
   if (!response.ok) {
     throw new Error(`Stellar.expert API error: ${response.status}`);
