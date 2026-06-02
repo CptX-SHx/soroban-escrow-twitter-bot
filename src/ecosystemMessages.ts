@@ -36,7 +36,7 @@ Check the replies for the full report 👇
 👥 ${toBold("SHx Trustlines")}
 
 ✅ Funded: ${data.fundedTrustlines}
-📋 Created: ${data.createdTrustlines}
+📋 Total: ${data.totalTrustlines}
 (Source: Stellar.Expert)
 
 🌐 ${toBold("Available Chains")}
