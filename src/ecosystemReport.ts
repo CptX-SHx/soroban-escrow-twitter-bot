@@ -10,7 +10,7 @@ export interface EscrowReportData {
   escrowActiveDate: string;
   escrowLink: string;
   fundedTrustlines: string;
-  createdTrustlines: string;
+  totalTrustlines: string;
   availableChains: string[];
 }
 
@@ -58,7 +58,7 @@ async function fetchCoinMarketCapData(): Promise<{
 
 async function fetchStellarExpertData(): Promise<{
   fundedTrustlines: string;
-  createdTrustlines: string;
+  totalTrustlines: string;
 }> {
   const url =
     "https://api.stellar.expert/explorer/public/asset/SHX-GDSTRSHXHGJ7ZIVRBXEYE5Q74XUVCUSEKEBR7UCHEUUEK72N7I7KJ6JH";
@@ -76,7 +76,7 @@ async function fetchStellarExpertData(): Promise<{
     : (trustlines?.total ?? 0);
   return {
     fundedTrustlines: funded.toLocaleString("en-US"),
-    createdTrustlines: created.toLocaleString("en-US"),
+    totalTrustlines: created.toLocaleString("en-US"),
   };
 }
 
@@ -95,7 +95,7 @@ export async function collectEcosystemReportData(): Promise<EscrowReportData> {
     escrowActiveDate: CONFIG.ESCROW_ACTIVE_SINCE,
     escrowLink: CONFIG.ESCROW_LINK,
     fundedTrustlines: stellarData.fundedTrustlines,
-    createdTrustlines: stellarData.createdTrustlines,
+    totalTrustlines: stellarData.totalTrustlines,
     availableChains: CONFIG.AVAILABLE_CHAINS,
   };
 }
