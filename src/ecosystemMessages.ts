@@ -44,8 +44,7 @@ Check the replies for the full report 👇
 ${data.availableChains.join(" · ")}
 
 
-
-Follow @${toBold("SHxEscrowAlerts")} for real-time escrow updates.
+Follow @SHxEscrowAlerts for real-time escrow updates.
 
 #StrongholdNet #Escrow #Stellar #Ethereum #XRPL`;
 
