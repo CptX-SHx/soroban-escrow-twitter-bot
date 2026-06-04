@@ -108,6 +108,11 @@ async function postEcosystemReport(): Promise<void> {
   }
 }
 
+// Delays applied between retries after a failed ecosystem report attempt.
+// First failure → retry in 1 hour; second failure → retry in 24 hours.
+// Once these are exhausted the report is skipped until next month.
+const ECOSYSTEM_RETRY_DELAYS_MS = [60 * 60 * 1000, 24 * 60 * 60 * 1000];
+
 function scheduleEcosystemReport(): void {
   const target = nextReportTarget();
   const msUntil = target.getTime() - Date.now();
@@ -120,16 +125,36 @@ function scheduleEcosystemReport(): void {
     setTimeout(() => scheduleEcosystemReport(), MAX_TIMEOUT);
     return;
   }
-  setTimeout(async () => {
-    try {
-      await postEcosystemReport();
-    } catch (error) {
-      console.error(
-        "Ecosystem report failed:",
-        error instanceof Error ? error.message : error,
+  setTimeout(() => attemptEcosystemReport(0), msUntil);
+}
+
+/**
+ * Attempts to post the ecosystem report. On success, the next monthly report
+ * is scheduled. On failure, the attempt is retried after a short delay
+ * (see {@link ECOSYSTEM_RETRY_DELAYS_MS}) instead of waiting until next month;
+ * once the retries are exhausted it falls back to the regular monthly schedule.
+ */
+async function attemptEcosystemReport(retryCount: number): Promise<void> {
+  try {
+    await postEcosystemReport();
+    scheduleEcosystemReport();
+  } catch (error) {
+    console.error(
+      "Ecosystem report failed:",
+      error instanceof Error ? error.message : error,
+    );
+    if (retryCount < ECOSYSTEM_RETRY_DELAYS_MS.length) {
+      const delay = ECOSYSTEM_RETRY_DELAYS_MS[retryCount];
+      const hours = Math.round(delay / 3_600_000);
+      console.log(
+        `Retrying ecosystem report in ${hours}h (attempt ${retryCount + 2})...`,
       );
-    } finally {
+      setTimeout(() => attemptEcosystemReport(retryCount + 1), delay);
+    } else {
+      console.warn(
+        "Ecosystem report retries exhausted; skipping until next month.",
+      );
       scheduleEcosystemReport();
     }
-  }, msUntil);
+  }
 }
