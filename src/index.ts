@@ -106,26 +106,50 @@ async function postEcosystemReport(): Promise<void> {
       return;
     }
     let lastTweetId: string | undefined;
-    for (const tweet of tweets) {
-      const result = await twitter
-        .getClient()
-        .v2.tweet(
-          tweet,
-          lastTweetId ? { reply: { in_reply_to_tweet_id: lastTweetId } } : {},
+    for (let i = 0; i < tweets.length; i++) {
+      try {
+        const result = await twitter
+          .getClient()
+          .v2.tweet(
+            tweets[i],
+            lastTweetId
+              ? { reply: { in_reply_to_tweet_id: lastTweetId } }
+              : {},
+          );
+        lastTweetId = result.data.id;
+        console.log(
+          `Posted ecosystem report tweet ${i + 1}/${tweets.length} (id: ${lastTweetId})`,
         );
-      lastTweetId = result.data.id;
-      await new Promise((r) => setTimeout(r, 3000));
+      } catch (error: any) {
+        const detail = error?.data?.detail ?? error?.message ?? error;
+        console.error(
+          `Failed to post ecosystem report tweet ${i + 1}/${tweets.length}:`,
+          detail,
+        );
+        console.warn(
+          lastTweetId
+            ? `No automatic retry. Last successful tweet id: ${lastTweetId}. Post the remaining ${tweets.length - i} tweet(s) manually as replies to it:`
+            : `No automatic retry. No tweet posted yet. Post all ${tweets.length} tweet(s) manually:`,
+        );
+        tweets
+          .slice(i)
+          .forEach((t, idx) =>
+            console.log(
+              `--- Remaining tweet ${i + idx + 1}/${tweets.length} ---\n${t}\n`,
+            ),
+          );
+        return;
+      }
+
+      if (i < tweets.length - 1) {
+        await new Promise((r) => setTimeout(r, 30_000));
+      }
     }
     console.log("Ecosystem report posted successfully.");
   } finally {
     isPostingReport = false;
   }
 }
-
-// Delays applied between retries after a failed ecosystem report attempt.
-// First failure → retry in 1 hour; second failure → retry in 24 hours.
-// Once these are exhausted the report is skipped until next month.
-const ECOSYSTEM_RETRY_DELAYS_MS = [60 * 60 * 1000, 24 * 60 * 60 * 1000];
 
 function scheduleEcosystemReport(): void {
   const target = nextReportTarget();
@@ -139,36 +163,15 @@ function scheduleEcosystemReport(): void {
     setTimeout(() => scheduleEcosystemReport(), MAX_TIMEOUT);
     return;
   }
-  setTimeout(() => attemptEcosystemReport(0), msUntil);
-}
-
-/**
- * Attempts to post the ecosystem report. On success, the next monthly report
- * is scheduled. On failure, the attempt is retried after a short delay
- * (see {@link ECOSYSTEM_RETRY_DELAYS_MS}) instead of waiting until next month;
- * once the retries are exhausted it falls back to the regular monthly schedule.
- */
-async function attemptEcosystemReport(retryCount: number): Promise<void> {
-  try {
-    await postEcosystemReport();
-    scheduleEcosystemReport();
-  } catch (error) {
-    console.error(
-      "Ecosystem report failed:",
-      error instanceof Error ? error.message : error,
-    );
-    if (retryCount < ECOSYSTEM_RETRY_DELAYS_MS.length) {
-      const delay = ECOSYSTEM_RETRY_DELAYS_MS[retryCount];
-      const hours = Math.round(delay / 3_600_000);
-      console.log(
-        `Retrying ecosystem report in ${hours}h (attempt ${retryCount + 2})...`,
+  setTimeout(async () => {
+    try {
+      await postEcosystemReport();
+    } catch (error) {
+      console.error(
+        "Ecosystem report failed:",
+        error instanceof Error ? error.message : error,
       );
-      setTimeout(() => attemptEcosystemReport(retryCount + 1), delay);
-    } else {
-      console.warn(
-        "Ecosystem report retries exhausted; skipping until next month.",
-      );
-      scheduleEcosystemReport();
     }
-  }
+    scheduleEcosystemReport();
+  }, msUntil);
 }
