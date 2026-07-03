@@ -19,6 +19,12 @@ async function main() {
 
   const escrow = new EscrowListener();
 
+  // Fetch balance once at startup; after this it is only ever updated
+  // incrementally from event amounts, never re-queried live.
+  let currentBalance = BigInt(
+    await escrow.getTokenBalance(CONFIG.SOROBAN_ESCROW_CONTRACT_ID),
+  );
+
   console.log(`Polling every ${CONFIG.POLLING_INTERVAL}ms...`);
 
   const poll = async () => {
@@ -27,13 +33,21 @@ async function main() {
 
       if (events.length > 0) {
         console.log(`Processing ${events.length} event(s)`);
+        let isFirstInBatch = true;
         for (const event of events) {
-          // Query token balance of the escrow contract for display
-          const rawAmount = await escrow.getTokenBalance(
-            CONFIG.SOROBAN_ESCROW_CONTRACT_ID,
-          );
-          const formattedAmount = formatAmount(rawAmount);
+          // Enforce a 5-minute gap between tweets within the same batch
+          if (!isFirstInBatch) {
+            await new Promise((r) => setTimeout(r, 5 * 60 * 1000));
+          }
+          isFirstInBatch = false;
 
+          // Update balance incrementally instead of querying the chain again
+          currentBalance =
+            event.type === "lock"
+              ? currentBalance + BigInt(event.amount)
+              : currentBalance - BigInt(event.amount);
+
+          const formattedAmount = formatAmount(currentBalance.toString());
           const formattedMessage = formatMessage(event, formattedAmount);
 
           if (formattedMessage) {
