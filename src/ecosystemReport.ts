@@ -29,6 +29,7 @@ async function fetchCoinMarketCapData(): Promise<{
   if (!CONFIG.COINMARKETCAP_API_KEY) {
     throw new Error("COINMARKETCAP_API_KEY is not set");
   }
+  console.log(`Fetching CoinMarketCap data at ${new Date().toISOString()}`);
   const url =
     "https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=SHX&convert=USD";
   const response = await fetch(url, {
@@ -60,6 +61,7 @@ async function fetchStellarExpertData(): Promise<{
   fundedTrustlines: string;
   totalTrustlines: string;
 }> {
+  console.log(`Fetching Stellar.Expert data at ${new Date().toISOString()}`);
   const url =
     "https://api.stellar.expert/explorer/public/asset/SHX-GDSTRSHXHGJ7ZIVRBXEYE5Q74XUVCUSEKEBR7UCHEUUEK72N7I7KJ6JH";
   const response = await fetch(url);
@@ -82,6 +84,7 @@ async function fetchStellarExpertData(): Promise<{
 
 export async function collectEcosystemReportData(): Promise<EscrowReportData> {
   const escrow = new EscrowListener();
+  console.log(`Fetching escrow balance at ${new Date().toISOString()}`);
   const [cmcData, stellarData, rawBalance] = await Promise.all([
     fetchCoinMarketCapData(),
     fetchStellarExpertData(),
