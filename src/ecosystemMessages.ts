@@ -20,12 +20,12 @@ Check the replies for the full report 👇
 
 📊 ${toBold("Market Data")}
 
-💵 Price: $${data.shxPriceUsd}
-📈 Market Cap: $${data.selfReportedMarketCap}
+💵 Price: ${data.shxPriceUsd}
+📈 Market Cap: ${data.selfReportedMarketCap}
 🔄 Circulating Supply: ${data.selfReportedCirculatingSupply} $SHx
 (Source: CoinMarketCap, self-reported)
 
-🔒 Locked in Escrow: ${data.escrowBalance} $SHx
+🔒 Locked in Escrow: ${data.escrowBalance} SHx
 📅 Escrow active since: ${data.escrowActiveDate}
 
 📄 ${toBold("Escrow Contract")}
