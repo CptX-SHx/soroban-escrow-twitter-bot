@@ -75,14 +75,7 @@ main().catch(console.error);
 let isPostingReport = false;
 
 function nextReportTarget(): Date {
-  const now = new Date();
-  const target = new Date(
-    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 28, 9, 0, 0, 0),
-  );
-  if (now.getTime() >= target.getTime()) {
-    target.setUTCMonth(target.getUTCMonth() + 1);
-  }
-  return target;
+  return new Date(Date.now() + 10 * 1000);
 }
 
 async function postEcosystemReport(): Promise<void> {
