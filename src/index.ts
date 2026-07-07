@@ -75,7 +75,7 @@ main().catch(console.error);
 let isPostingReport = false;
 
 function nextReportTarget(): Date {
-  return new Date(Date.UTC(2026, 6, 7, 16, 15, 0, 0));
+  return new Date(Date.UTC(2026, 6, 7, 17, 30, 0, 0));
 }
 
 async function postEcosystemReport(): Promise<void> {
