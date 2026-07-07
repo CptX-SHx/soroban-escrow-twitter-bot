@@ -46,7 +46,7 @@ ${data.availableChains.join(" · ")}
 
 Follow @SHxEscrowAlerts for real-time escrow updates.
 
-#StrongholdNet #Escrow #Stellar #Ethereum #XRPL`;
+#StrongholdNet #Escrow #Stellar #Solana #Ethereum #XRPL`;
 
   return [mainTweet, tweet1, tweet2];
 }
