@@ -20,6 +20,7 @@ export const CONFIG = {
     ACCESS_SECRET: process.env.TWITTER_ACCESS_SECRET || "",
   },
   DRY_RUN: process.env.DRY_RUN === "true",
+  POST_ECOSYSTEM_REPORT: process.env.POST_ECOSYSTEM_REPORT === "true",
   POLLING_INTERVAL: parseInt(process.env.POLLING_INTERVAL || "60000", 10),
   COINMARKETCAP_API_KEY: process.env.COINMARKETCAP_API_KEY || "",
   ESCROW_ACTIVE_SINCE: process.env.ESCROW_ACTIVE_SINCE || "June 16, 2025",

@@ -65,7 +65,27 @@ async function main() {
 
   // Start the polling loop
   poll();
-  scheduleEcosystemReport();
+
+  if (CONFIG.POST_ECOSYSTEM_REPORT) {
+    console.log(
+      "POST_ECOSYSTEM_REPORT=true — will post ecosystem report in 5 minutes.",
+    );
+    setTimeout(
+      async () => {
+        try {
+          await postEcosystemReport();
+        } catch (error) {
+          console.error(
+            "Ecosystem report failed:",
+            error instanceof Error ? error.message : error,
+          );
+        }
+      },
+      5 * 60 * 1000,
+    );
+  } else {
+    console.log("POST_ECOSYSTEM_REPORT not set — ecosystem report skipped.");
+  }
 }
 
 main().catch(console.error);
@@ -73,17 +93,6 @@ main().catch(console.error);
 // ─── Ecosystem Report Scheduler ───────────────────────────────────────────
 
 let isPostingReport = false;
-
-function nextReportTarget(): Date {
-  const now = new Date();
-  const target = new Date(
-    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 28, 9, 0, 0, 0),
-  );
-  if (now.getTime() >= target.getTime()) {
-    target.setUTCMonth(target.getUTCMonth() + 1);
-  }
-  return target;
-}
 
 async function postEcosystemReport(): Promise<void> {
   if (isPostingReport) {
@@ -149,29 +158,4 @@ async function postEcosystemReport(): Promise<void> {
   } finally {
     isPostingReport = false;
   }
-}
-
-function scheduleEcosystemReport(): void {
-  const target = nextReportTarget();
-  const msUntil = target.getTime() - Date.now();
-  const hours = Math.floor(msUntil / 3_600_000);
-  console.log(
-    `Next ecosystem report scheduled for ${target.toISOString()} (in ${hours}h)`,
-  );
-  const MAX_TIMEOUT = 2_147_483_647;
-  if (msUntil > MAX_TIMEOUT) {
-    setTimeout(() => scheduleEcosystemReport(), MAX_TIMEOUT);
-    return;
-  }
-  setTimeout(async () => {
-    try {
-      await postEcosystemReport();
-    } catch (error) {
-      console.error(
-        "Ecosystem report failed:",
-        error instanceof Error ? error.message : error,
-      );
-    }
-    scheduleEcosystemReport();
-  }, msUntil);
 }
