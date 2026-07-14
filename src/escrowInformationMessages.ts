@@ -8,20 +8,20 @@ export function formatEscrowInformationThread(): string[] {
 
 🧵 1/4
 
-On June 16, 2025, Stronghold locked 60 billion $SHx in a 5-year smart contract on #Stellar.
+On June 16, 2025, Stronghold locked 60B $SHx in a 5-year smart contract on #Stellar.
 This initiative is a foundational shift in how they manage token supply — a continuous, transparent, predictable schedule.`;
 
   const tweet2 = `🧵 2/4
 
 How it works:
 
-1B #SHx become claimable starting on the 15th of each month, then gets unlocked, used if needed, and the rest relocked for 5 years — repeating every month.
+1B #SHx become claimable starting on the 15th of each month, then get unlocked, used if needed, and the rest is relocked for 5 years — repeating every month.
 Funds stay secured by a multisig setup, requiring multiple approvals before any movement.`;
 
   const tweet3 = `🧵 3/4
 
-By enforcing token releases through a smart contract, #SHx supply dynamics are governed by predefined rules, not manual decisions.
-Unlocks are transparent, scheduled, and cannot be altered unexpectedly — building structural accountability into SHx tokenomics.`;
+By keeping 60B #SHx locked and unlocking just 1B monthly, this structure ensures that, if tokens ever leave escrow, it can only happen in small amounts.
+Rules are enforced purely by code, with no team member able to bypass the schedule or unlock tokens early.`;
 
   const tweet4 = `🧵 4/4
 
