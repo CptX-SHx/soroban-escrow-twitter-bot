@@ -21,6 +21,7 @@ export const CONFIG = {
   },
   DRY_RUN: process.env.DRY_RUN === "true",
   POST_ECOSYSTEM_REPORT: process.env.POST_ECOSYSTEM_REPORT === "true",
+  POST_ESCROW_INFORMATION: process.env.POST_ESCROW_INFORMATION === "true",
   POLLING_INTERVAL: parseInt(process.env.POLLING_INTERVAL || "60000", 10),
   COINMARKETCAP_API_KEY: process.env.COINMARKETCAP_API_KEY || "",
   ESCROW_ACTIVE_SINCE: process.env.ESCROW_ACTIVE_SINCE || "June 16, 2025",
