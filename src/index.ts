@@ -5,6 +5,7 @@ import { formatMessage } from "./messages";
 import { CONFIG } from "./config";
 import { collectEcosystemReportData } from "./ecosystemReport";
 import { formatEcosystemReportThread } from "./ecosystemMessages";
+import { formatEscrowInformationThread } from "./escrowInformationMessages";
 
 const twitter = new TwitterClient();
 
@@ -86,6 +87,30 @@ async function main() {
   } else {
     console.log("POST_ECOSYSTEM_REPORT not set — ecosystem report skipped.");
   }
+
+// ─── Escrow Information Trigger-Block ------------------------------  
+if (CONFIG.POST_ESCROW_INFORMATION) {
+    console.log(
+      "POST_ESCROW_INFORMATION=true — will post escrow information in 5 minutes.",
+    );
+    setTimeout(
+      async () => {
+        try {
+          await postEscrowInformation();
+        } catch (error) {
+          console.error(
+            "Escrow information post failed:",
+            error instanceof Error ? error.message : error,
+          );
+        }
+      },
+      5 * 60 * 1000,
+    );
+  } else {
+    console.log(
+      "POST_ESCROW_INFORMATION not set — escrow information skipped.",
+    );
+  }
 }
 
 main().catch(console.error);
@@ -157,5 +182,71 @@ async function postEcosystemReport(): Promise<void> {
     console.log("Ecosystem report posted successfully.");
   } finally {
     isPostingReport = false;
+  }
+}
+
+
+// Escrow Information Scheduler ─────────────────────────────────────────
+ 
+let isPostingEscrowInfo = false;
+ 
+async function postEscrowInformation(): Promise<void> {
+  if (isPostingEscrowInfo) {
+    console.warn("Escrow information post already in progress, skipping.");
+    return;
+  }
+  isPostingEscrowInfo = true;
+  try {
+    console.log("Generating escrow information thread...");
+    const tweets = formatEscrowInformationThread();
+    if (CONFIG.DRY_RUN) {
+      tweets.forEach((t, i) =>
+        console.log(`[DRY RUN] Escrow information tweet ${i + 1}:\n${t}\n`),
+      );
+      return;
+    }
+    let lastTweetId: string | undefined;
+    for (let i = 0; i < tweets.length; i++) {
+      try {
+        const result = await twitter
+          .getClient()
+          .v2.tweet(
+            tweets[i],
+            lastTweetId
+              ? { reply: { in_reply_to_tweet_id: lastTweetId } }
+              : {},
+          );
+        lastTweetId = result.data.id;
+        console.log(
+          `Posted escrow information tweet ${i + 1}/${tweets.length} (id: ${lastTweetId})`,
+        );
+      } catch (error: any) {
+        const detail = error?.data?.detail ?? error?.message ?? error;
+        console.error(
+          `Failed to post escrow information tweet ${i + 1}/${tweets.length}:`,
+          detail,
+        );
+        console.warn(
+          lastTweetId
+            ? `No automatic retry. Last successful tweet id: ${lastTweetId}. Post the remaining ${tweets.length - i} tweet(s) manually as replies to it:`
+            : `No automatic retry. No tweet posted yet. Post all ${tweets.length} tweet(s) manually:`,
+        );
+        tweets
+          .slice(i)
+          .forEach((t, idx) =>
+            console.log(
+              `--- Remaining tweet ${i + idx + 1}/${tweets.length} ---\n${t}\n`,
+            ),
+          );
+        return;
+      }
+ 
+      if (i < tweets.length - 1) {
+        await new Promise((r) => setTimeout(r, 30_000));
+      }
+    }
+    console.log("Escrow information posted successfully.");
+  } finally {
+    isPostingEscrowInfo = false;
   }
 }
