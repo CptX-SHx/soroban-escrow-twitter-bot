@@ -12,7 +12,7 @@ Unused tokens auto re-lock for another 5 years — a continuous, transparent, pr
 
   const tweet2 = `🧵 2/3
 
-By enforcing token releases through a smart contract, SHx supply dynamics are governed by predefined rules, not manual decisions.
+By enforcing token releases through a smart contract, #SHx supply dynamics are governed by predefined rules, not manual decisions.
 Unlocks are transparent, scheduled, and cannot be altered unexpectedly — building structural accountability into SHx tokenomics.`;
 
   const tweet3 = `🧵 3/3
@@ -26,7 +26,9 @@ https://stellar.expert/explorer/public/contract/CCA5HAZCPEYXD7JBKAJCVUZUXAK7V5ZF
 https://stronghold.co/learn/stronghold-locks-60-billion-shx-escrow
 
 ▶️ Escrow - Strongholds YouTube
-https://www.youtube.com/watch?v=8-iQ7AjcCv8`;
+https://www.youtube.com/watch?v=8-iQ7AjcCv8
+
+#SHxArmy #SHx #Stronghold #EDP #Stellar`;
 
   return [tweet1, tweet2, tweet3];
 }
