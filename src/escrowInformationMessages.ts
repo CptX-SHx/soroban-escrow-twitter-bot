@@ -1,14 +1,16 @@
+import { toBold } from "./utils";
+
 export function formatEscrowInformationThread(): string[] {
   const now = new Date();
   const month = now.toLocaleString("en-US", { month: "long" });
 
-  const tweet1 = `📋 Escrow Information - ${month}
+  const tweet1 = `📋 ${toBold("Escrow Information")} - ${month}
 
 🧵 1/4
 
 Stronghold locked 60 billion $SHx in a 5-year smart contract on Stellar.
 Every month, 1B #SHx unlocks through escrow.
-Unused tokens will be re-locked for another 5 years — a continuous, transparent, predictable release schedule.`;
+Unused tokens are re-locked for 5 more years — a continuous, transparent, predictable schedule.`;
 
   const tweet2 = `🧵 2/4
 
@@ -27,7 +29,7 @@ Visit the following links for more information:
 📝 Escrow Blog by Stronghold
 https://stronghold.co/learn/stronghold-locks-60-billion-shx-escrow
 
-▶️ Escrow Insider - Strongholds YouTube
+▶️ Escrow Insider - Stronghold YouTube
 https://www.youtube.com/watch?v=8-iQ7AjcCv8
 
 📄 Escrow Contract - Stellar Expert
