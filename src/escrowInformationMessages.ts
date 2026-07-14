@@ -14,8 +14,8 @@ Unused tokens are re-locked for 5 more years — a continuous, transparent, pred
 
   const tweet2 = `🧵 2/4
 
-The 1B #SHx becomes claimable starting on the 15th of each month. Any portion not claimed then waits to be locked. 
-Throughout, funds stay secured by a multisig setup, requiring multiple approvals before any movement can occur.`;
+1B #SHx become claimable starting on the 15th of each month, then get unlocked, used if needed, and the rest gets relocked again.
+Throughout, funds stay secured by a multisig setup, requiring multiple approvals before any movement.`;
 
   const tweet3 = `🧵 3/4
 
