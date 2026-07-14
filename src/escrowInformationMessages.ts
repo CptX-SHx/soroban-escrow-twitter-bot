@@ -12,9 +12,10 @@ On June 16, 2025, Stronghold locked 60 billion $SHx in a 5-year smart contract o
 This initiative is a foundational shift in how they manage token supply — a continuous, transparent, predictable schedule.`;
 
   const tweet2 = `🧵 2/4
- 
+
 How it works:
-1B #SHx become claimable starting on the 15th of each month, then gets unlocked, used if needed, and the rest relocked — a cycle that repeats every month.
+
+1B #SHx become claimable starting on the 15th of each month, then gets unlocked, used if needed, and the rest relocked for 5 years — repeating every month.
 Funds stay secured by a multisig setup, requiring multiple approvals before any movement.`;
 
   const tweet3 = `🧵 3/4
